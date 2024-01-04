@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Machine Failure Analysis</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', 'Times','serif';
+            background-repeat: no-repeat;
+            background-color: rgb(13, 13, 56);
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: rgb(250, 245, 245);
+        }
+
+        .result-container {
+            background-color: rgb(211, 128, 69);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Machine Failure Analysis Report</h1>
+
+    <div class="result-container">
+        <h2>Overall Failure Rate:</h2>
+        <p>{{ overall_failure_rate }}</p>
+    </div>
+
+    <div class="result-container">
+        <h2>Failure Rate per Production Line:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Production Line</th>
+                    <th>Failure Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line, rate in production_line_data.items() %}
+                <tr>
+                    <td>{{ line }}</td>
+                    <td>{{ rate }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="result-container">
+        <h2>Production Lines with High Failure Rates:</h2>
+        <ul>
+            {% for line, year in machine_replacement_years.items() %}
+            <li>{{ line }}</li>
+            {% endfor %} 
+        </ul>
+    </div>
+
+    <div class="result-container">
+        <h2>Machine Replacement Years:</h2>
+        <ul>
+            {% for line, year in machine_replacement_years.items() %}
+            <li>{{ line }} - {{ year }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="result-container">
+        <h2>Accuracy:</h2>
+        <p>{{ accuracy }}</p>
+    </div>
+
+    <div class="result-container">
+        <h2>Failure Rate per Production Line</h2>
+        <img src="{{ url_for('static', filename='Figure_1.png') }}" alt="Failure Rate per Production Line" width="600" height="400" />
+    </div>
+</body>
+</html>
